@@ -59,15 +59,12 @@ class UsersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('username')
-            ->allowEmpty('username');
+            ->notEmpty('username', 'A username is required');
 
         $validator
-            ->scalar('password')
-            ->allowEmpty('password');
+            ->notEmpty('password','A password is required');
 
         $validator
-            ->scalar('role')
             ->allowEmpty('role');
 
         return $validator;

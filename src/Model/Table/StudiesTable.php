@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -63,7 +64,7 @@ class StudiesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('seats');
+            ->notEmpty('seats', 'Seats are required');
 
         $validator
             ->dateTime('completed')
@@ -71,4 +72,19 @@ class StudiesTable extends Table
 
         return $validator;
     }
+
+    public function exists($studyId)
+    {
+        return $this->exists(['id' => $studyId]);
+    }
+
+    public function isFull($studyId)
+    {
+        $usersStudies = TableRegistry::get('UsersStudies');
+        $seats = $this->get($studyId)->seats;
+        $count = $usersStudies->find('all', ['conditions' => ['study_id' => $studyId]])->count();
+        return $seats == $count;
+    }
+
+
 }

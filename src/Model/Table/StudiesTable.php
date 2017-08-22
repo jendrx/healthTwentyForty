@@ -102,4 +102,9 @@ class StudiesTable extends Table
         $count = $usersStudies->find('all', ['conditions' => ['study_id' => $studyId]])->count();
         return $seats == $count;
     }
+
+    public function listAll()
+    {
+        return $this->find('list');
+    }
 }

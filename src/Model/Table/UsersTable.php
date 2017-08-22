@@ -83,4 +83,9 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    public function listAll()
+    {
+        return $this->find('list');
+    }
 }

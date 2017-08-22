@@ -18,13 +18,13 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    /*public function index()
     {
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
-    }
+    }*/
 
     /**
      * View method
@@ -33,7 +33,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    /*public function view($id = null)
     {
         $user = $this->Users->get($id, [
             'contain' => ['Studies']
@@ -41,13 +41,14 @@ class UsersController extends AppController
 
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
-    }
+    }*/
 
     /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
+
     public function add()
     {
         $user = $this->Users->newEntity();
@@ -60,8 +61,9 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $studies = $this->Users->Studies->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'studies'));
+        //$studies = $this->Users->Studies->find('list', ['limit' => 200]);
+        //$this->set(compact('user', 'studies'));
+        $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
 
@@ -72,7 +74,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    /*public function edit($id = null)
     {
         $user = $this->Users->get($id, [
             'contain' => ['Studies']
@@ -89,7 +91,7 @@ class UsersController extends AppController
         $studies = $this->Users->Studies->find('list', ['limit' => 200]);
         $this->set(compact('user', 'studies'));
         $this->set('_serialize', ['user']);
-    }
+    }*/
 
     /**
      * Delete method
@@ -98,7 +100,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    /*public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
@@ -109,5 +111,5 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
+    }*/
 }

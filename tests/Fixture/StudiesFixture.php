@@ -21,8 +21,10 @@ class StudiesFixture extends TestFixture
         'created' => ['type' => 'timestamp', 'length' => null, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null],
         'seats' => ['type' => 'smallinteger', 'length' => 5, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null, 'unsigned' => null],
         'completed' => ['type' => 'timestamp', 'length' => null, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null],
+        'category_id' => ['type' => 'biginteger', 'length' => 20, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null, 'unsigned' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+            'studies_category_id_fkey' => ['type' => 'foreign', 'columns' => ['category_id'], 'references' => ['categories', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -35,9 +37,10 @@ class StudiesFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'created' => 1503416045,
+            'created' => 1503419685,
             'seats' => 1,
-            'completed' => 1503416045
+            'completed' => 1503419685,
+            'category_id' => 1
         ],
     ];
 }

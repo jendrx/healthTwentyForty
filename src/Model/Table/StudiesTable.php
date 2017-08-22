@@ -4,12 +4,12 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
  * Studies Model
  *
+ * @property \App\Model\Table\CategoriesTable|\Cake\ORM\Association\BelongsTo $Categories
  * @property \App\Model\Table\RoundsTable|\Cake\ORM\Association\HasMany $Rounds
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsToMany $Users
  *
@@ -42,6 +42,9 @@ class StudiesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Categories', [
+            'foreignKey' => 'category_id'
+        ]);
         $this->hasMany('Rounds', [
             'foreignKey' => 'study_id'
         ]);
@@ -64,13 +67,27 @@ class StudiesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->notEmpty('seats', 'Seats are required');
+            ->allowEmpty('seats');
 
         $validator
             ->dateTime('completed')
             ->allowEmpty('completed');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['category_id'], 'Categories'));
+
+        return $rules;
     }
 
     public function exists($studyId)
@@ -85,6 +102,4 @@ class StudiesTable extends Table
         $count = $usersStudies->find('all', ['conditions' => ['study_id' => $studyId]])->count();
         return $seats == $count;
     }
-
-
 }

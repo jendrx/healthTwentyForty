@@ -20,6 +20,9 @@ class StudiesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Categories']
+        ];
         $studies = $this->paginate($this->Studies);
 
         $this->set(compact('studies'));
@@ -36,7 +39,7 @@ class StudiesController extends AppController
     public function view($id = null)
     {
         $study = $this->Studies->get($id, [
-            'contain' => ['Users', 'Rounds']
+            'contain' => ['Categories', 'Users', 'Rounds']
         ]);
 
         $this->set('study', $study);
@@ -60,8 +63,9 @@ class StudiesController extends AppController
             }
             $this->Flash->error(__('The study could not be saved. Please, try again.'));
         }
+        $categories = $this->Studies->Categories->find('list', ['limit' => 200]);
         $users = $this->Studies->Users->find('list', ['limit' => 200]);
-        $this->set(compact('study', 'users'));
+        $this->set(compact('study', 'categories', 'users'));
         $this->set('_serialize', ['study']);
     }
 
@@ -86,8 +90,9 @@ class StudiesController extends AppController
             }
             $this->Flash->error(__('The study could not be saved. Please, try again.'));
         }
+        $categories = $this->Studies->Categories->find('list', ['limit' => 200]);
         $users = $this->Studies->Users->find('list', ['limit' => 200]);
-        $this->set(compact('study', 'users'));
+        $this->set(compact('study', 'categories', 'users'));
         $this->set('_serialize', ['study']);
     }
 

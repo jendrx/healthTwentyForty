@@ -17,6 +17,8 @@ class StudiesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.studies',
+        'app.categories',
+        'app.questions',
         'app.rounds',
         'app.users',
         'app.users_studies'

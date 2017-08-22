@@ -27,6 +27,7 @@ class UsersStudiesTableTest extends TestCase
         'app.users_studies',
         'app.users',
         'app.studies',
+        'app.categories',
         'app.rounds'
     ];
 

@@ -4,19 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Study Entity
+ * Category Entity
  *
  * @property int $id
- * @property \Cake\I18n\FrozenTime $created
- * @property int $seats
- * @property \Cake\I18n\FrozenTime $completed
- * @property int $category_id
+ * @property string $description
  *
- * @property \App\Model\Entity\Category $category
- * @property \App\Model\Entity\Round[] $rounds
- * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\Question[] $questions
+ * @property \App\Model\Entity\Study[] $studies
  */
-class Study extends Entity
+class Category extends Entity
 {
 
     /**

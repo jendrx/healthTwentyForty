@@ -43,12 +43,7 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth',[
-            'logoutRedirect' => [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'home'
-            ]]);
+        $this->loadComponent('Auth',['authorize' => ['Controller']]);
 
         /*
          * Enable the following components for recommended CakePHP security settings.
@@ -58,12 +53,29 @@ class AppController extends Controller
         //$this->loadComponent('Csrf');
     }
 
+    public function isAuthorized($user)
+    {
+        if ($this->request->getParam('prefix') === 'admin' && $this->Auth->user('role') === 'admin') {
+            return true;
+        }
+
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        // Default deny
+        return false;
+    }
+
+
     /**
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return \Cake\Http\Response|null|void
      */
+
+
     public function beforeRender(Event $event)
     {
         // Note: These defaults are just to get started quickly with development

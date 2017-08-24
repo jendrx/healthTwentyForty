@@ -3,6 +3,8 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\I18n\Time;
+
 
 /**
  * Studies Controller
@@ -63,9 +65,9 @@ class StudiesController extends AppController
             }
             $this->Flash->error(__('The study could not be saved. Please, try again.'));
         }
-        $categories = $this->Studies->Categories->find('list', ['limit' => 200]);
-        $users = $this->Studies->Users->find('list', ['limit' => 200]);
-        $this->set(compact('study', 'categories', 'users'));
+        $categories = $this->Studies->Categories->listAll();
+        //$users = $this->Studies->Users->find('list', ['limit' => 200]);
+        $this->set(compact('study', 'categories'));
         $this->set('_serialize', ['study']);
     }
 
@@ -114,5 +116,25 @@ class StudiesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function finish($id = null)
+    {
+        $this->render('view');
+        if($this->request->is(['patch', 'post', 'put']))
+        {
+            $study = $this->Studies->get($id);
+            $study->set('completed',Time::now());
+            if($this->Studies->save($study))
+            {
+                $this->render('index');
+                $this->Flash->success(__('The study has been finished.'));
+                return $this->redirect(['controller' => 'studies','actions' => 'index']);
+            }
+            $this->Flash->success(__('The study has  not been finished.'));
+            return $this->redirect(['controller' => 'studies','actions' => 'view', $id]);
+
+
+        }
     }
 }

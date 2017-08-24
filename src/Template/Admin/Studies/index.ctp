@@ -36,7 +36,7 @@
                 <td><?= h($study->created) ?></td>
                 <td><?= $this->Number->format($study->seats) ?></td>
                 <td><?= h($study->completed) ?></td>
-                <td><?= $study->has('category') ? $this->Html->link($study->category->id, ['controller' => 'Categories', 'action' => 'view', $study->category->id]) : '' ?></td>
+                <td><?= $study->has('category') ? $this->Html->link($study->category->description, ['controller' => 'Categories', 'action' => 'view', $study->category->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $study->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $study->id]) ?>

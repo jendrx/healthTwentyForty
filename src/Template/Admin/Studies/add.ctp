@@ -21,9 +21,9 @@
         <legend><?= __('Add Study') ?></legend>
         <?php
             echo $this->Form->control('seats');
-            echo $this->Form->control('completed');
-            echo $this->Form->control('category_id', ['options' => $categories, 'empty' => true]);
-            echo $this->Form->control('users._ids', ['options' => $users]);
+            //echo $this->Form->control('completed');
+            echo $this->Form->control('category_id', ['options' => $categories]);
+            //echo $this->Form->control('users._ids', ['options' => $users]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

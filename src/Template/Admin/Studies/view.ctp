@@ -99,4 +99,11 @@
         </table>
         <?php endif; ?>
     </div>
+
+    <div class="related">
+        <h4><?=__('Actions')?></h4>
+        <?php if(empty($study->completed)): ?>
+            <?= $this->Form->postLink(__('Finish Study'), ['controller' => 'studies', 'action'=> 'finish', $study->id], ['confirm' => __('Are you sure you want to finish study {0}?', $study->id)])?>
+        <?php endif; ?>
+    </div>
 </div>

@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Questions Model
  *
  * @property \App\Model\Table\CategoriesTable|\Cake\ORM\Association\BelongsTo $Categories
- * @property \App\Model\Table\RoundsTable|\Cake\ORM\Association\BelongsTo $Rounds
+ * @property \App\Model\Table\RoundsTable|\Cake\ORM\Association\HasMany $Rounds
  * @property \App\Model\Table\IndicatorsTable|\Cake\ORM\Association\BelongsToMany $Indicators
  *
  * @method \App\Model\Entity\Question get($primaryKey, $options = [])
@@ -41,8 +41,8 @@ class QuestionsTable extends Table
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id'
         ]);
-        $this->belongsTo('Rounds', [
-            'foreignKey' => 'round_id'
+        $this->hasMany('Rounds', [
+            'foreignKey' => 'question_id'
         ]);
         $this->belongsToMany('Indicators', [
             'foreignKey' => 'question_id',
@@ -63,8 +63,7 @@ class QuestionsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('description')
-            ->allowEmpty('description');
+            ->notEmpty('description');
 
         return $validator;
     }
@@ -79,13 +78,17 @@ class QuestionsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['category_id'], 'Categories'));
-        $rules->add($rules->existsIn(['round_id'], 'Rounds'));
 
         return $rules;
     }
 
     public function listAll()
     {
-        return $this->find('list');
+        return $this->find('list',['keyField' => 'id', 'valueField' => 'description']);
+    }
+
+    public function getAll()
+    {
+        return $this->find('all');
     }
 }

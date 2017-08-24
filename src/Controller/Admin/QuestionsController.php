@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 
@@ -21,7 +21,7 @@ class QuestionsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Categories', 'Rounds']
+            'contain' => ['Categories']
         ];
         $questions = $this->paginate($this->Questions);
 
@@ -39,7 +39,7 @@ class QuestionsController extends AppController
     public function view($id = null)
     {
         $question = $this->Questions->get($id, [
-            'contain' => ['Categories', 'Rounds', 'Indicators']
+            'contain' => ['Categories', 'Indicators', 'Rounds']
         ]);
 
         $this->set('question', $question);
@@ -55,18 +55,16 @@ class QuestionsController extends AppController
     {
         $question = $this->Questions->newEntity();
         if ($this->request->is('post')) {
-            $question = $this->Questions->patchEntity($question, $this->request->getData());
+            $question = $this->Questions->patchEntity($question, $this->request->getData(),['associated' => ['Categories', 'Indicators']]);
             if ($this->Questions->save($question)) {
                 $this->Flash->success(__('The question has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
-        $categories = $this->Questions->Categories->find('list', ['limit' => 200]);
-        $rounds = $this->Questions->Rounds->find('list', ['limit' => 200]);
-        $indicators = $this->Questions->Indicators->find('list', ['limit' => 200]);
-        $this->set(compact('question', 'categories', 'rounds', 'indicators'));
+        $categories = $this->Questions->Categories->listAll();
+        $indicators = $this->Questions->Indicators->find('all');
+        $this->set(compact('question', 'categories', 'indicators'));
         $this->set('_serialize', ['question']);
     }
 
@@ -83,6 +81,7 @@ class QuestionsController extends AppController
             'contain' => ['Indicators']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+
             $question = $this->Questions->patchEntity($question, $this->request->getData());
             if ($this->Questions->save($question)) {
                 $this->Flash->success(__('The question has been saved.'));
@@ -92,9 +91,8 @@ class QuestionsController extends AppController
             $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
         $categories = $this->Questions->Categories->find('list', ['limit' => 200]);
-        $rounds = $this->Questions->Rounds->find('list', ['limit' => 200]);
         $indicators = $this->Questions->Indicators->find('list', ['limit' => 200]);
-        $this->set(compact('question', 'categories', 'rounds', 'indicators'));
+        $this->set(compact('question', 'categories', 'indicators'));
         $this->set('_serialize', ['question']);
     }
 

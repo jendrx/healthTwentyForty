@@ -1,15 +1,16 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 
 /**
- * Round Controller
+ * Rounds Controller
  *
+ * @property \App\Model\Table\RoundsTable $Rounds
  *
  * @method \App\Model\Entity\Round[] paginate($object = null, array $settings = [])
  */
-class RoundController extends AppController
+class RoundsController extends AppController
 {
 
     /**
@@ -19,10 +20,13 @@ class RoundController extends AppController
      */
     public function index()
     {
-        $round = $this->paginate($this->Round);
+        $this->paginate = [
+            'contain' => ['Studies', 'Questions']
+        ];
+        $rounds = $this->paginate($this->Rounds);
 
-        $this->set(compact('round'));
-        $this->set('_serialize', ['round']);
+        $this->set(compact('rounds'));
+        $this->set('_serialize', ['rounds']);
     }
 
     /**
@@ -34,8 +38,8 @@ class RoundController extends AppController
      */
     public function view($id = null)
     {
-        $round = $this->Round->get($id, [
-            'contain' => []
+        $round = $this->Rounds->get($id, [
+            'contain' => ['Studies', 'Questions']
         ]);
 
         $this->set('round', $round);
@@ -49,17 +53,19 @@ class RoundController extends AppController
      */
     public function add()
     {
-        $round = $this->Round->newEntity();
+        $round = $this->Rounds->newEntity();
         if ($this->request->is('post')) {
-            $round = $this->Round->patchEntity($round, $this->request->getData());
-            if ($this->Round->save($round)) {
+            $round = $this->Rounds->patchEntity($round, $this->request->getData());
+            if ($this->Rounds->save($round)) {
                 $this->Flash->success(__('The round has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The round could not be saved. Please, try again.'));
         }
-        $this->set(compact('round'));
+        $studies = $this->Rounds->Studies->find('list', ['limit' => 200]);
+        $questions = $this->Rounds->Questions->find('list', ['limit' => 200]);
+        $this->set(compact('round', 'studies', 'questions'));
         $this->set('_serialize', ['round']);
     }
 
@@ -72,19 +78,21 @@ class RoundController extends AppController
      */
     public function edit($id = null)
     {
-        $round = $this->Round->get($id, [
+        $round = $this->Rounds->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $round = $this->Round->patchEntity($round, $this->request->getData());
-            if ($this->Round->save($round)) {
+            $round = $this->Rounds->patchEntity($round, $this->request->getData());
+            if ($this->Rounds->save($round)) {
                 $this->Flash->success(__('The round has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The round could not be saved. Please, try again.'));
         }
-        $this->set(compact('round'));
+        $studies = $this->Rounds->Studies->find('list', ['limit' => 200]);
+        $questions = $this->Rounds->Questions->find('list', ['limit' => 200]);
+        $this->set(compact('round', 'studies', 'questions'));
         $this->set('_serialize', ['round']);
     }
 
@@ -98,8 +106,8 @@ class RoundController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $round = $this->Round->get($id);
-        if ($this->Round->delete($round)) {
+        $round = $this->Rounds->get($id);
+        if ($this->Rounds->delete($round)) {
             $this->Flash->success(__('The round has been deleted.'));
         } else {
             $this->Flash->error(__('The round could not be deleted. Please, try again.'));

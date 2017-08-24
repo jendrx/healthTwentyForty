@@ -55,14 +55,13 @@ class IndicatorsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('description')
-            ->allowEmpty('description');
+            ->notEmpty('description');
 
         return $validator;
     }
 
     public function listAll()
     {
-        return $this->find('list');
+        return $this->find('list',['keyField' => 'id', 'valueField' => 'description']);
     }
 }

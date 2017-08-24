@@ -67,7 +67,8 @@ class StudiesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('seats');
+            ->notEmpty('seats')
+            ->greaterThan('seats',0, 'Seats must be greater than zero');
 
         $validator
             ->dateTime('completed')

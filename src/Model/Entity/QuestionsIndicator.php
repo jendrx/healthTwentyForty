@@ -4,17 +4,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Question Entity
+ * QuestionsIndicator Entity
  *
  * @property int $id
- * @property string $description
- * @property int $category_id
+ * @property float $default_value
+ * @property float $default_max_value
+ * @property float $default_min_value
+ * @property int $question_id
+ * @property int $indicator_id
  *
- * @property \App\Model\Entity\Category $category
- * @property \App\Model\Entity\Round[] $rounds
- * @property \App\Model\Entity\Indicator[] $indicators
+ * @property \App\Model\Entity\Question $question
+ * @property \App\Model\Entity\Indicator $indicator
  */
-class Question extends Entity
+class QuestionsIndicator extends Entity
 {
 
     /**

@@ -21,8 +21,10 @@ class RoundsFixture extends TestFixture
         'number' => ['type' => 'smallinteger', 'length' => 5, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null, 'unsigned' => null],
         'completed' => ['type' => 'timestamp', 'length' => null, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null],
         'study_id' => ['type' => 'biginteger', 'length' => 20, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'question_id' => ['type' => 'biginteger', 'length' => 20, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null, 'unsigned' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+            'rounds_question_id_fkey' => ['type' => 'foreign', 'columns' => ['question_id'], 'references' => ['questions', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
             'rounds_study_id_fkey' => ['type' => 'foreign', 'columns' => ['study_id'], 'references' => ['studies', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
     ];
@@ -37,8 +39,9 @@ class RoundsFixture extends TestFixture
         [
             'id' => 1,
             'number' => 1,
-            'completed' => 1503421749,
-            'study_id' => 1
+            'completed' => 1503569506,
+            'study_id' => 1,
+            'question_id' => 1
         ],
     ];
 }

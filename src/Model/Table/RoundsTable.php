@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Rounds Model
  *
  * @property \App\Model\Table\StudiesTable|\Cake\ORM\Association\BelongsTo $Studies
- * @property \App\Model\Table\QuestionsTable|\Cake\ORM\Association\HasMany $Questions
+ * @property \App\Model\Table\QuestionsTable|\Cake\ORM\Association\BelongsTo $Questions
  *
  * @method \App\Model\Entity\Round get($primaryKey, $options = [])
  * @method \App\Model\Entity\Round newEntity($data = null, array $options = [])
@@ -40,8 +40,8 @@ class RoundsTable extends Table
         $this->belongsTo('Studies', [
             'foreignKey' => 'study_id'
         ]);
-        $this->hasMany('Questions', [
-            'foreignKey' => 'round_id'
+        $this->belongsTo('Questions', [
+            'foreignKey' => 'question_id'
         ]);
     }
 
@@ -76,6 +76,7 @@ class RoundsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['study_id'], 'Studies'));
+        $rules->add($rules->existsIn(['question_id'], 'Questions'));
 
         return $rules;
     }

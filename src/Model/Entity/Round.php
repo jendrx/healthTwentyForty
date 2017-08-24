@@ -10,9 +10,10 @@ use Cake\ORM\Entity;
  * @property int $number
  * @property \Cake\I18n\FrozenTime $completed
  * @property int $study_id
+ * @property int $question_id
  *
  * @property \App\Model\Entity\Study $study
- * @property \App\Model\Entity\Question[] $questions
+ * @property \App\Model\Entity\Question $question
  */
 class Round extends Entity
 {

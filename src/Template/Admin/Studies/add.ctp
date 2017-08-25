@@ -1,7 +1,7 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -20,10 +20,10 @@
     <fieldset>
         <legend><?= __('Add Study') ?></legend>
         <?php
-            echo $this->Form->control('seats');
-            //echo $this->Form->control('completed');
-            echo $this->Form->control('category_id', ['options' => $categories]);
-            //echo $this->Form->control('users._ids', ['options' => $users]);
+        echo $this->Form->control('seats');
+        //echo $this->Form->control('completed');
+        echo $this->Form->control('category_id', ['options' => $categories]);
+        echo $this->Form->control('users._ids', ['type' => 'select', 'multiple' => true, 'options' => $users]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

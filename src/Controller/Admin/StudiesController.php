@@ -57,7 +57,12 @@ class StudiesController extends AppController
     {
         $study = $this->Studies->newEntity();
         if ($this->request->is('post')) {
-            $study = $this->Studies->patchEntity($study, $this->request->getData());
+            $data =  $this->request->getData();
+            $study = $this->Studies->patchEntity($study, $data, ['associated' => ['Users']]);
+
+            echo (json_encode($data));
+
+
             if ($this->Studies->save($study)) {
                 $this->Flash->success(__('The study has been saved.'));
 
@@ -66,8 +71,8 @@ class StudiesController extends AppController
             $this->Flash->error(__('The study could not be saved. Please, try again.'));
         }
         $categories = $this->Studies->Categories->listAll();
-        //$users = $this->Studies->Users->find('list', ['limit' => 200]);
-        $this->set(compact('study', 'categories'));
+        $users = $this->Studies->Users->find('list');
+        $this->set(compact('study', 'categories','users'));
         $this->set('_serialize', ['study']);
     }
 
@@ -92,8 +97,8 @@ class StudiesController extends AppController
             }
             $this->Flash->error(__('The study could not be saved. Please, try again.'));
         }
-        $categories = $this->Studies->Categories->find('list', ['limit' => 200]);
-        $users = $this->Studies->Users->find('list', ['limit' => 200]);
+        $categories = $this->Studies->Categories->listAll();
+        $users = $this->Studies->Users->listAll();
         $this->set(compact('study', 'categories', 'users'));
         $this->set('_serialize', ['study']);
     }

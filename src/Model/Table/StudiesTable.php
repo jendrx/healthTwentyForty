@@ -91,11 +91,6 @@ class StudiesTable extends Table
         return $rules;
     }
 
-    public function exists($studyId)
-    {
-        return $this->exists(['id' => $studyId]);
-    }
-
     public function isFull($studyId)
     {
         $usersStudies = TableRegistry::get('UsersStudies');

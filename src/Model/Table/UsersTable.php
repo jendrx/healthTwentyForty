@@ -86,6 +86,6 @@ class UsersTable extends Table
 
     public function listAll()
     {
-        return $this->find('list');
+        return $this->find('list',['keyField' => 'id', 'valueField' => 'username']);
     }
 }

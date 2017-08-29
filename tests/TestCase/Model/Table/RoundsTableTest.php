@@ -27,11 +27,11 @@ class RoundsTableTest extends TestCase
         'app.rounds',
         'app.studies',
         'app.categories',
-        'app.users',
-        'app.users_studies',
         'app.questions',
         'app.indicators',
-        'app.questions_indicators'
+        'app.questions_indicators',
+        'app.users',
+        'app.users_studies'
     ];
 
     /**

@@ -26,7 +26,10 @@ class StudiesTableTest extends TestCase
     public $fixtures = [
         'app.studies',
         'app.categories',
+        'app.questions',
         'app.rounds',
+        'app.indicators',
+        'app.questions_indicators',
         'app.users',
         'app.users_studies'
     ];
@@ -81,6 +84,26 @@ class StudiesTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test isFull method
+     *
+     * @return void
+     */
+    public function testIsFull()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test listAll method
+     *
+     * @return void
+     */
+    public function testListAll()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

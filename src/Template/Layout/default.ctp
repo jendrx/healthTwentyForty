@@ -29,6 +29,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
 
+    <?= $this->Html->script("//code.jquery.com/jquery-3.2.1.min.js")?>
+    <?= $this->Html->script("//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js")?>
+    <?= $this->Html->script("//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js")?>
+
+
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>

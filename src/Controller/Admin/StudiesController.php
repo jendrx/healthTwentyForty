@@ -58,7 +58,7 @@ class StudiesController extends AppController
         $study = $this->Studies->newEntity();
         if ($this->request->is('post')) {
             $data =  $this->request->getData();
-            $study = $this->Studies->patchEntity($study, $data, ['associated' => ['Users']]);
+            $study = $this->Studies->patchEntity($study, $data, ['associated' => ['Users','Rounds']]);
 
             echo (json_encode($data));
 
@@ -72,6 +72,7 @@ class StudiesController extends AppController
         }
         $categories = $this->Studies->Categories->listAll();
         $users = $this->Studies->Users->find('list');
+
         $this->set(compact('study', 'categories','users'));
         $this->set('_serialize', ['study']);
     }
@@ -141,5 +142,21 @@ class StudiesController extends AppController
 
 
         }
+    }
+
+    // ajax query
+    public function getQuestions()
+    {
+        if($this->request->is('ajax'))
+        {
+            $params = $this->request->getQueryParams();
+
+            $questions = $this->Studies->Categories->getQuestions($params['category_id']);
+
+
+        }
+
+        $this->set(compact('questions'));
+        $this->set('_serialize',['questions']);
     }
 }

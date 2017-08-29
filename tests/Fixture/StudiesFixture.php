@@ -37,9 +37,9 @@ class StudiesFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'created' => 1503419685,
+            'created' => 1504017606,
             'seats' => 1,
-            'completed' => 1503419685,
+            'completed' => 1504017606,
             'category_id' => 1
         ],
     ];

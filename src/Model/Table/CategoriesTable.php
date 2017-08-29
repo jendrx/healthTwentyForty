@@ -67,4 +67,10 @@ class CategoriesTable extends Table
     {
         return $this->find('list',['keyField' => 'id', 'valueField' => 'description']);
     }
+
+
+    public function getQuestions($id = null)
+    {
+        return $this->Questions->find('all', ['conditions' => ['category_id' => $id]]);
+    }
 }

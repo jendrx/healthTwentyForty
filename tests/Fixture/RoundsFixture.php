@@ -39,7 +39,7 @@ class RoundsFixture extends TestFixture
         [
             'id' => 1,
             'number' => 1,
-            'completed' => 1503569506,
+            'completed' => 1504017615,
             'study_id' => 1,
             'question_id' => 1
         ],

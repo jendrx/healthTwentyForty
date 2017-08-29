@@ -87,8 +87,16 @@ class QuestionsTable extends Table
         return $this->find('list',['keyField' => 'id', 'valueField' => 'description']);
     }
 
+    public function listByCategory($category)
+    {
+        return $this->find('list',['keyField' => 'id', 'valueField' => 'description', 'conditions' => ['category_id' => $category]]);
+    }
+
+
     public function getAll()
     {
         return $this->find('all');
     }
+
+
 }

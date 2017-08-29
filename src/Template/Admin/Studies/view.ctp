@@ -52,6 +52,7 @@
                 <th scope="col"><?= __('Number') ?></th>
                 <th scope="col"><?= __('Completed') ?></th>
                 <th scope="col"><?= __('Study Id') ?></th>
+                <th scope="col"><?= __('Question Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($study->rounds as $rounds): ?>
@@ -60,6 +61,7 @@
                 <td><?= h($rounds->number) ?></td>
                 <td><?= h($rounds->completed) ?></td>
                 <td><?= h($rounds->study_id) ?></td>
+                <td><?= h($rounds->question_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Rounds', 'action' => 'view', $rounds->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Rounds', 'action' => 'edit', $rounds->id]) ?>
@@ -97,13 +99,6 @@
             </tr>
             <?php endforeach; ?>
         </table>
-        <?php endif; ?>
-    </div>
-
-    <div class="related">
-        <h4><?=__('Actions')?></h4>
-        <?php if(empty($study->completed)): ?>
-            <?= $this->Form->postLink(__('Finish Study'), ['controller' => 'studies', 'action'=> 'finish', $study->id], ['confirm' => __('Are you sure you want to finish study {0}?', $study->id)])?>
         <?php endif; ?>
     </div>
 </div>
